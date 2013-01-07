@@ -14,7 +14,27 @@ usage() {
     fi
     echo "$NAME options"
     echo "$NAME valid options are:"
-    echo "[-c|--config] <configuration_file>: Read configuration variables from designated file"
+    echo "--help                      Show this help message."
+    echo "-c|--config <conf_file>     Read configuration variables from <conf_file>"
+    echo "--keep-files                Keep local backup files after uploading them to the ftp server"
+    echo "--name                      Set the name of the backup process that will be logged"
+    echo "--archive-name              Set the archive files name prefix"
+    echo "--dbname                    Set the database name that will be backed up"
+    echo "--dbuser                    Set the database user name"
+    echo "--dbpass                    Set the database password"
+    echo "--dbcompress <algorithm>    Set the compression alogrithm for the database dumbp."
+    echo "                            Valid values are one of [none|gzip|bzip2|xz]."
+    echo "--sourcedir <dir>           Set the source directory from which to backup files."
+    echo "                            This argument can be defined multiple times and all directories defined"
+    echo "                            will be backed up in one tar archive"
+    echo "--backupdir <dir>           The directory into which the archives will be saved before being uploaded"
+    echo "                            to the ftp server."
+    echo "--filecompress <algorithm>  Set the compression algorithm for the file archive."
+    echo "                            Valid values are one of [none|gzip|bzip2|xz]."
+    echo "--ftphost <host>            Set the ftp host to which the archives will be uploaded."
+    echo "--ftpusername <uname>       Set the ftp user name."
+    echo "--ftppassword <passwd>      Set the ftp user password."
+    echo "--ftpdir <dir>              Set the directory of the ftp server into which the archives will be uploaded."
 	
 }
 
@@ -80,6 +100,7 @@ timestamp=$(date +%Y%m%d-%H%M%S)
 # -c | --config <config_file>
 
 ARGS=$(getopt --options c: \
+	--longoptions help \
 	--longoptions config: \
        	--longoptions keep-files \
 	--longoptions name: \
@@ -121,6 +142,7 @@ while true ; do
 		--ftpusername) ftpusername="$1"; shift 2;;
 		--ftppassword) ftppassword="$1"; shift 2;;
 		--ftpdir) ftpdir="$1"; shift 2;;
+		--help) usage backup_phpapp ; exit ;;
 		--) shift ; break ;;
 		*) log "Error parsing command line argument " $1 ; exit 1 ;;
 	esac
