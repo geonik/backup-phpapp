@@ -8,14 +8,3 @@ If your application fits the above description this script will fit you nicely.
 After taking the backup the application pushes (using wput) the files to an ftp
 server for remote backing up. After that local files are deleted. You can keep
 the local files with the --keep-files option.
-
-Sample array
-
-|column a|column b|
-|--------|--------|
-|value 1 | value 2|
-|value 2 | value 4|
-|value 2 | value 4|
-|value 2 | value 4|
-|value 2 | value 4|
-|value 2 | value 4|
